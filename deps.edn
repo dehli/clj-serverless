@@ -1,0 +1,21 @@
+{:deps {org.clojure/clojure {:mvn/version "1.10.0"}
+        org.clojure/clojurescript {:mvn/version "1.10.520"}
+        org.clojure/core.async {:mvn/version "0.4.490"}}
+
+ :paths ["src" "test"]
+
+ :aliases
+ {:pack
+  {:main-opts
+   ["-m" "mach.pack.alpha.skinny" "--no-libs" "--project-path" "whiskey.jar"]
+
+   :extra-deps
+   {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
+                     :sha "d9023b24c3d589ba6ebc66c5a25c0826ed28ead5"}}}
+
+  :deploy
+  {:main-opts
+   ["-m" "deps-deploy.deps-deploy" "deploy" "whiskey.jar"]
+
+   :extra-deps
+   {deps-deploy {:mvn/version "RELEASE"}}}}}

@@ -1,0 +1,22 @@
+{
+  "name": "serverless",
+  "version": "1.0.0",
+  "description": "AWS serverless helpers targeting Cljs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dehli/serverless.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dehli/serverless/issues"
+  },
+  "homepage": "https://github.com/dehli/serverless#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.429.0"
+  }
+}
