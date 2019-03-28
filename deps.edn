@@ -10,6 +10,12 @@
               "-XX:+HeapDumpOnOutOfMemoryError"]
    :main-opts ["./scripts/build.clj"]}
 
+  :test
+  {:extra-deps {olical/cljs-test-runner {:mvn/version "3.5.0"}
+                org.clojure/tools.namespace {:mvn/version "0.3.0-alpha4"}
+                doo {:mvn/version "0.1.11"}}
+   :main-opts ["-m" "cljs-test-runner.main"]}
+
   :pack
   {:main-opts
    ["-m" "mach.pack.alpha.skinny" "--no-libs" "--project-path" "whiskey.jar"]
