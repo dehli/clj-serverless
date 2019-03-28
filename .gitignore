@@ -3,3 +3,5 @@
 .nrepl-port
 node_modules/
 whiskey.jar
+out/
+build/

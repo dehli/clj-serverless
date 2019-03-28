@@ -18,3 +18,9 @@
            (cljs.core.async/close! chan#)
            (cljs.core.async/>! chan# result#))))
      chan#))
+
+(defmacro <? [ch]
+  `(let [val# (cljs.core.async/<! ~ch)]
+     (if (instance? js/Error val#)
+       (throw val#)
+       val#)))

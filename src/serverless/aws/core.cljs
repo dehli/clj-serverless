@@ -2,8 +2,6 @@
   (:require [cljs.core.async :refer [go <!]]
             [goog.object :as gobj]))
 
-(defonce ^:private AWS (js/require "aws-sdk"))
-
 (defn- clj->js-handler
   [handler]
   #(js/Promise.
