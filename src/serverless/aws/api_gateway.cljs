@@ -1,7 +1,7 @@
 (ns serverless.aws.api-gateway
   (:require [goog.object :as gobj]
-            [serverless.aws.sdk :refer [AWS]]
-            [serverless.json :refer [json->clj]]))
+            [serverless.aws.sdk :refer [AWS js-call]]
+            [serverless.json :refer [json->clj clj->json]]))
 
 (defonce ^:private ManagementApi (gobj/get AWS "ApiGatewayManagementApi"))
 
@@ -16,3 +16,9 @@
 (defonce sub (comp :principalId authorizer))
 (defonce body #(-> % :body (json->clj :keywordize-keys true)))
 (defonce endpoint (comp #(str (:domainName %) "/" (:stage %)) request-context))
+
+(defn post-to-connection [client {:keys [connection-id data]}]
+  (js-call client
+           "postToConnection"
+           {:ConnectionId connection-id
+            :Data (clj->json data)}))
