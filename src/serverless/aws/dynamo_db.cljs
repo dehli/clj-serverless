@@ -1,7 +1,7 @@
 (ns serverless.aws.dynamo-db
   (:require [goog.object :as gobj]
             [serverless.aws.sdk :refer [AWS js-call]])
-  (:refer-clojure :exclude [update]))
+  (:refer-clojure :exclude [get update]))
 
 (defonce ^:private DynamoDB (gobj/get AWS "DynamoDB"))
 (defonce ^:private DocumentClient (gobj/get DynamoDB "DocumentClient"))
@@ -33,6 +33,9 @@
 
 (defn delete [client params]
   (js-call client "delete" params))
+
+(defn get [client params]
+  (js-call client "get" params))
 
 (defn put [client params]
   (js-call client "put" params))
