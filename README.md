@@ -12,3 +12,5 @@ clj -Spom    # Generate pom
 clj -Apack   # Generate jar
 clj -Adeploy # Deploy jar
 ```
+
+`pack_and_deploy` is included for convenience.

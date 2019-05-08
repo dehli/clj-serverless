@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [ -z "$CLOJARS_USERNAME" ]; then
+   echo "CLOJARS_USERNAME is empty"
+fi
+
+if [ -z "$CLOJARS_PASSWORD" ]; then
+   echo "CLOJARS_PASSWORD is empty"
+fi
+
+# Generate pom file
+clj -Spom
+
+# Generate jar file
+rm -f whiskey.jar
+clj -Apack
+
+# Upload to clojars
+clj -Adeploy
