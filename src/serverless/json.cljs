@@ -1,7 +1,13 @@
 (ns serverless.json)
 
-(defn clj->json [x]
-  (-> x clj->js js/JSON.stringify))
+(defn keyword->str
+  [k]
+  (-> k str (subs 1)))
 
-(defn json->clj [x & opts]
+(defn clj->json
+  [& x]
+  (-> clj->js (apply x) js/JSON.stringify))
+
+(defn json->clj
+  [x & opts]
   (apply js->clj (conj opts (js/JSON.parse x))))
