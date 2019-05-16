@@ -4,6 +4,7 @@
     <connection>scm:git:git://github.com/dehli/serverless.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/dehli/serverless.git</developerConnection>
     <url>https://github.com/dehli/serverless</url>
+    <tag>HEAD</tag>
   </scm>
 
   <modelVersion>4.0.0</modelVersion>
