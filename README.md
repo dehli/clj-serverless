@@ -1,16 +1,5 @@
+[![Clojars Project](https://img.shields.io/clojars/v/dehli/serverless.svg)](https://clojars.org/dehli/serverless)
+
 # Serverless
 
 AWS serverless helpers targeting Cljs.
-
-## Notes
-
-```
-export CLOJARS_USERNAME=""
-export CLOJARS_PASSWORD=""
-
-clj -Spom    # Generate pom
-clj -Apack   # Generate jar
-clj -Adeploy # Deploy jar
-```
-
-`pack_and_deploy` is included for convenience.
