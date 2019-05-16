@@ -3,6 +3,9 @@
 if [[ $(git diff --stat) != '' ]]; then
   echo "Error: dirty repo"
   exit 1
+elif [[ $(git rev-parse --show-toplevel) != $(pwd) ]]; then
+  echo "Error: Not in root directory"
+  exit 1
 elif [ -z "$CLOJARS_USERNAME" ]; then
   echo "Error: CLOJARS_USERNAME is empty"
   exit 1
@@ -23,4 +26,4 @@ clj -Apack
 # Upload to clojars
 clj -Adeploy
 
-git checkout pom.xml
+sed -i "s/$(git rev-parse HEAD)/HEAD/g" pom.xml
