@@ -1,4 +1,4 @@
-(ns aws.serverless.user-pools
+(ns serverless.aws.user-pools
   (:require [goog.object :as gobj]
             [serverless.aws.sdk :refer [AWS js-call]]))
 
