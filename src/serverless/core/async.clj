@@ -1,17 +1,18 @@
-(ns serverless.core.async)
+(ns serverless.core.async
+  (:require [cljs.core.async :as async]))
 
 (defmacro go-try
   [& body]
-  `(let [chan# (cljs.core.async/promise-chan)]
-     (cljs.core.async/go
+  `(let [chan# (async/promise-chan)]
+     (async/go
        (let [result# (try ~@body (catch :default e# e#))]
          (if (nil? result#)
-           (cljs.core.async/close! chan#)
-           (cljs.core.async/>! chan# result#))))
+           (async/close! chan#)
+           (async/>! chan# result#))))
      chan#))
 
 (defmacro <? [ch]
-  `(let [val# (cljs.core.async/<! ~ch)]
+  `(let [val# (async/<! ~ch)]
      (if (instance? js/Error val#)
        (throw val#)
        val#)))
