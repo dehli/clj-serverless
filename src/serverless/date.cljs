@@ -16,7 +16,7 @@
   (->iso-str (now)))
 
 (defn ->timestamp
-  "Converts any format-table js datetime object to seconds from epoch"
+  "Converts any format-table js datetime object to milliseconds from epoch"
   [datetime-object]
   (js-invoke (new js/Date datetime-object) "getTime"))
 
