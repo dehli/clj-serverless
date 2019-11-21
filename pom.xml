@@ -11,24 +11,24 @@
 
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>
-  <version>0.1.5</version>
+  <version>0.1.6</version>
   <name>serverless</name>
 
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.10.0</version>
+      <version>1.10.1</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojurescript</artifactId>
-      <version>1.10.520</version>
+      <version>1.10.597</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>core.async</artifactId>
-      <version>0.4.490</version>
+      <version>0.5.527</version>
     </dependency>
   </dependencies>
   <build>

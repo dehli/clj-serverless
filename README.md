@@ -3,3 +3,11 @@
 # Serverless
 
 AWS serverless helpers targeting Cljs.
+
+## Running Tests
+
+```
+clj -A:test
+```
+
+## Publishing version
