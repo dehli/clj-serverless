@@ -4,10 +4,15 @@
 
 AWS serverless helpers targeting Cljs.
 
-## Running Tests
+## Commands
 
 ```
-clj -A:test
+clj -A:build (--watch)   # Build code
+clj -A:test              # Run tests
 ```
 
 ## Publishing version
+
+```
+./scripts/pack_and_deploy
+```
