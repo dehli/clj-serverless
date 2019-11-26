@@ -31,6 +31,9 @@
       clj->js
       DocumentClient.))
 
+(defn create-set [client values]
+  (js-invoke client "createSet" (clj->js values)))
+
 (defn delete [client params]
   (js-call client "delete" params))
 
