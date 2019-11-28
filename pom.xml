@@ -11,7 +11,7 @@
 
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>
-  <version>0.1.7</version>
+  <version>0.1.8</version>
   <name>serverless</name>
 
   <dependencies>

@@ -34,6 +34,29 @@
 (defn create-set [client values]
   (js-invoke client "createSet" (clj->js values)))
 
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Transaction Actions
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- transaction-action [key table-name options]
+  {key (merge {:TableName table-name} options)})
+
+(defn condition-check-action [table-name options]
+  (transaction-action :ConditionCheck table-name options))
+
+(defn delete-action [table-name options]
+  (transaction-action :Delete table-name options))
+
+(defn put-action [table-name options]
+  (transaction-action :Put table-name options))
+
+(defn update-action [table-name options]
+  (transaction-action :Update table-name options))
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Regular Actions
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn delete [client params]
   (js-call client "delete" params))
 
@@ -45,6 +68,9 @@
 
 (defn query [client params]
   (js-call client "query" params))
+
+(defn transact-write [client actions]
+  (js-call client "transactWrite" {:TransactItems actions}))
 
 (defn update [client params]
   (js-call client "update" params))
