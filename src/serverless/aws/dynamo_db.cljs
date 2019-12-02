@@ -34,6 +34,9 @@
 (defn create-set [client values]
   (js-invoke client "createSet" (clj->js values)))
 
+(defn set->clj-set [s]
+  (set (gobj/get s "values")))
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Transaction Actions
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
