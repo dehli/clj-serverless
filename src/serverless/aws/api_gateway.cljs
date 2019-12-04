@@ -6,9 +6,7 @@
 (defonce ^:private ManagementApi (gobj/get AWS "ApiGatewayManagementApi"))
 
 (defn management-api [endpoint]
-  (-> {:apiVersion "2018-11-29" :endpoint endpoint}
-      clj->js
-      ManagementApi.))
+  (new ManagementApi (clj->js {:apiVersion "2018-11-29" :endpoint endpoint})))
 
 (defonce request-context :requestContext)
 (defonce connection-id (comp :connectionId request-context))
