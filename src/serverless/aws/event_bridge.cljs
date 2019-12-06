@@ -8,5 +8,6 @@
   (new EventBridge))
 
 (defn put-events
-  [client entries]
-  (js-call client "putEvents" {:Entries entries}))
+  ([client entries] (put-events client {} entries))
+  ([client defaults entries]
+   (js-call client "putEvents" {:Entries (map #(merge defaults %) entries)})))
