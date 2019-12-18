@@ -12,7 +12,9 @@
       Converter.unmarshall
       (js->clj :keywordize-keys true)))
 
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Streams (assumes batch size = 1)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defonce ^:private record (comp first :Records))
 
@@ -26,13 +28,24 @@
 (defonce old-image (comp unmarshall :OldImage :dynamodb record))
 (defonce new-image (comp unmarshall :NewImage :dynamodb record))
 
-(defn document-client [table-name]
-  (-> {:params {:TableName table-name}}
-      clj->js
-      DocumentClient.))
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Document Clients
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn create-set [client values]
-  (js-invoke client "createSet" (clj->js values)))
+(defonce ^:private default-client
+  (new DocumentClient))
+
+(defn document-client [table-name]
+  (new DocumentClient (clj->js {:params {:TableName table-name}})))
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Set Code
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn create-set
+  ([values] (create-set default-client values))
+  ([client values]
+   (js-invoke client "createSet" (clj->js values))))
 
 (defn set->clj-set [s]
   (set (gobj/get s "values")))
