@@ -1,38 +1,38 @@
 (ns serverless.aws.dynamo-db
   (:require [goog.object :as gobj]
-            [serverless.aws.sdk :refer [AWS js-call]])
+            [serverless.aws.sdk :refer [AWS js-call]]
+            [serverless.core :refer [def-]])
   (:refer-clojure :exclude [get update]))
 
-(defonce ^:private DynamoDB (gobj/get AWS "DynamoDB"))
-(defonce ^:private DocumentClient (gobj/get DynamoDB "DocumentClient"))
-(defonce ^:private Converter (gobj/get DynamoDB "Converter"))
+(def- DynamoDB (gobj/get AWS "DynamoDB"))
+(def- DocumentClient (gobj/get DynamoDB "DocumentClient"))
+(def- Converter (gobj/get DynamoDB "Converter"))
 
-(defn- unmarshall [item]
-  (-> (clj->js item)
-      Converter.unmarshall
-      (js->clj :keywordize-keys true)))
+(def unmarshall
+  (let [unmarshall (gobj/get Converter "unmarshall")]
+    (fn [item] (-> item clj->js  unmarshall (js->clj :keywordize-keys true)))))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Streams (assumes batch size = 1)
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defonce ^:private record (comp first :Records))
+(def- record (comp first :Records))
 
 (defn- event-name? [type record]
   (= (:eventName record) type))
 
-(defonce insert? (comp (partial event-name? "INSERT") record))
-(defonce modify? (comp (partial event-name? "MODIFY") record))
-(defonce remove? (comp (partial event-name? "REMOVE") record))
+(def insert? (comp (partial event-name? "INSERT") record))
+(def modify? (comp (partial event-name? "MODIFY") record))
+(def remove? (comp (partial event-name? "REMOVE") record))
 
-(defonce old-image (comp unmarshall :OldImage :dynamodb record))
-(defonce new-image (comp unmarshall :NewImage :dynamodb record))
+(def old-image (comp unmarshall :OldImage :dynamodb record))
+(def new-image (comp unmarshall :NewImage :dynamodb record))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Document Clients
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defonce ^:private default-client
+(def- default-client
   (new DocumentClient))
 
 (defn document-client [table-name]
@@ -57,17 +57,10 @@
 (defn- transaction-action [key table-name options]
   {key (merge {:TableName table-name} options)})
 
-(defn condition-check-action [table-name options]
-  (transaction-action :ConditionCheck table-name options))
-
-(defn delete-action [table-name options]
-  (transaction-action :Delete table-name options))
-
-(defn put-action [table-name options]
-  (transaction-action :Put table-name options))
-
-(defn update-action [table-name options]
-  (transaction-action :Update table-name options))
+(def condition-check-action (partial transaction-action :ConditionCheck))
+(def delete-action (partial transaction-action :Delete))
+(def put-action (partial transaction-action :Put))
+(def update-action (partial transaction-action :Update))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Regular Actions
