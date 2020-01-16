@@ -4,8 +4,11 @@
 (defn env [key]
   (gobj/getValueByKeys js/process "env" key))
 
-(defonce aws-lambda-function-name
+(def aws-lambda-function-name
   (env "AWS_LAMBDA_FUNCTION_NAME"))
 
-(defonce aws-region
+(def aws-region
   (env "AWS_REGION"))
+
+(def logging-level
+  (env "LOGGING_LEVEL"))
