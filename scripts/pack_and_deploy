@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ $(git diff --stat) != '' ]]; then
-  echo "Error: dirty repo"
-  exit 1
-elif [[ $(git rev-parse --show-toplevel) != $(pwd) ]]; then
+if [[ $(git rev-parse --show-toplevel) != $(pwd) ]]; then
   echo "Error: Not in root directory"
   exit 1
 elif [ -z "$CLOJARS_USERNAME" ]; then
@@ -16,6 +13,13 @@ fi
 
 # Generate pom file
 clj -Spom
+clj -Abuild
+
+# Verify that repo isn't dirty
+if [[ $(git diff --stat) != '' ]]; then
+  echo "Error: dirty repo"
+  exit 1
+fi
 
 sed -i "s/HEAD/$(git rev-parse HEAD)/g" pom.xml
 

@@ -6,26 +6,18 @@
 
 (def- ApiGatewayManagementApi (gobj/get AWS "ApiGatewayManagementApi"))
 
-;; Protocol
-(defprotocol ManagementApiProtocol
-  "A protocol to interact with ApiGatewayManagementApi"
-  (delete-connection [this params] "Delete a connection")
-  (get-connection [this params] "Get a connection")
-  (post-to-connection [this params] "Post data to a connection"))
+;; Constructor
+(defn api-gateway-management-api [^String endpoint]
+  (new ApiGatewayManagementApi
+       (clj->js {:apiVersion "2018-11-29" :endpoint endpoint})))
 
-(deftype ManagementApi [api]
-  ManagementApiProtocol
-  (delete-connection [_ params]
-    (js-call-v2 api "deleteConnection" params))
-  (get-connection [_ params]
-    (js-call-v2 api "getConnection" params))
-  (post-to-connection [_ params]
-    (js-call-v2 api "postToConnection" (update params :data clj->json))))
-
-(defn management-api [^String endpoint]
-  (->> (clj->js {:apiVersion "2018-11-29" :endpoint endpoint})
-       (new ApiGatewayManagementApi)
-       ->ManagementApi))
+;; Public methods
+(defn delete-connection [api params]
+  (js-call-v2 api "deleteConnection" params))
+(defn get-connection [api params]
+  (js-call-v2 api "getConnection" params))
+(defn post-to-connection [api params]
+  (js-call-v2 api "postToConnection" (update params :data clj->json)))
 
 ;; Accessors
 (def request-context :requestContext)
