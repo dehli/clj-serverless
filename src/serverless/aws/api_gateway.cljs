@@ -11,13 +11,18 @@
   (new ApiGatewayManagementApi
        (clj->js {:apiVersion "2018-11-29" :endpoint endpoint})))
 
+;; Method helpers
+(def- base-xform #(select-keys % [:connection-id]))
+(defn- post-xform [p]
+  (-> p (update :data clj->json) (select-keys [:connection-id :data])))
+
 ;; Public methods
-(defn delete-connection [api params]
-  (js-call-v2 api "deleteConnection" params))
-(defn get-connection [api params]
-  (js-call-v2 api "getConnection" params))
-(defn post-to-connection [api params]
-  (js-call-v2 api "postToConnection" (update params :data clj->json)))
+(def delete-connection
+  (partial js-call-v2 "deleteConnection" base-xform))
+(def get-connection
+  (partial js-call-v2 "getConnection" base-xform))
+(def post-to-connection
+  (partial js-call-v2 "postToConnection" post-xform))
 
 ;; Accessors
 (def request-context :requestContext)

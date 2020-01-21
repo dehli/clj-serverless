@@ -16,7 +16,9 @@
     (js-invoke client method (clj->js args) (callback c))
     c))
 
-(defn js-call-v2 [client method args]
+(defn js-call-v2 [method xform client args]
   (let [c (promise-chan)]
-    (js-invoke client method (clj->js (kebab->pascal args)) (callback c))
+    (js-invoke client method
+               (clj->js (kebab->pascal (xform args)))
+               (callback c))
     c))
