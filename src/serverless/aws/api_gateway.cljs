@@ -4,12 +4,11 @@
             [serverless.core :refer [def-]]
             [serverless.json :refer [json->clj clj->json]]))
 
-(def- ApiGatewayManagementApi (gobj/get AWS "ApiGatewayManagementApi"))
+(def- ManagementApi (gobj/get AWS "ApiGatewayManagementApi"))
 
 ;; Constructor
-(defn api-gateway-management-api [^String endpoint]
-  (new ApiGatewayManagementApi
-       (clj->js {:apiVersion "2018-11-29" :endpoint endpoint})))
+(defn management-api [^String endpoint]
+  (new ManagementApi (clj->js {:apiVersion "2018-11-29" :endpoint endpoint})))
 
 ;; Method helpers
 (def- base-xform #(select-keys % [:connection-id]))
