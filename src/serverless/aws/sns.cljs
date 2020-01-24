@@ -13,9 +13,9 @@
                      :params {:TopicArn topic-arn}})))
 
 ;; Method helpers
-(defn- base-xform [{:keys [message]}]
+(defn- base-xform [message]
   {:message (clj->json message)})
 
 ;; Public methods
 (def publish
-  (partial js-call-v2 base-xform))
+  (partial js-call-v2 "publish" base-xform))
