@@ -22,3 +22,9 @@
      (doseq [c# ~chans]
        (swap! res# conj (serverless.core.async/<? c#)))
      @res#))
+
+(defmacro <<! [chans]
+  `(let [res# (atom [])]
+     (doseq [c# ~chans]
+       (swap! res# conj (async/<! c#)))
+     @res#))
