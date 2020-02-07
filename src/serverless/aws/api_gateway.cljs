@@ -25,8 +25,9 @@
 
 ;; Accessors
 (def request-context :requestContext)
-(def connection-id (comp :connectionId request-context))
 (def authorizer (comp :authorizer request-context))
+(def connection-id (comp :connectionId request-context))
+(def route-key (comp :routeKey request-context))
 (def sub (comp :principalId authorizer))
 (def body #(-> % :body (json->clj :keywordize-keys true)))
 (def endpoint (comp #(str (:domainName %) "/" (:stage %)) request-context))
