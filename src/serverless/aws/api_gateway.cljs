@@ -34,7 +34,10 @@
 
 ;; Websocket event helpers
 (defn ws-event->deps [ws-event]
-  (let [api (management-api (endpoint ws-event))]
+  (let [api (management-api (endpoint ws-event))
+        post-to-connection (partial post-to-connection api)]
     {:delete-connection (partial delete-connection api)
      :get-connection (partial get-connection api)
-     :post-to-connection (partial post-to-connection api)}))
+     :post-to-connection post-to-connection
+     :post-to-sender #(post-to-connection
+                       {:connection-id (connection-id ws-event) :data %})}))
