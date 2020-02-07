@@ -30,3 +30,10 @@
 (def sub (comp :principalId authorizer))
 (def body #(-> % :body (json->clj :keywordize-keys true)))
 (def endpoint (comp #(str (:domainName %) "/" (:stage %)) request-context))
+
+;; Websocket event helpers
+(defn ws-event->deps [ws-event]
+  (let [api (management-api (endpoint ws-event))]
+    {:delete-connection (partial delete-connection api)
+     :get-connection (partial get-connection api)
+     :post-to-connection (partial post-to-connection api)}))
