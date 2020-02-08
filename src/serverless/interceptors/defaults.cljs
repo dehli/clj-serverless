@@ -30,9 +30,9 @@
 
 (def merge-web-socket-deps
   {:name :merge-web-socket-deps
-   :enter (fn [{:keys [event] :as context}]
+   :enter (fn [{:keys [raw-event] :as context}]
             (update context :deps merge
-                    (api/ws-event->deps event)))})
+                    (api/ws-event->deps raw-event)))})
 
 (def ws-interceptors
   [assoc-raw-event
