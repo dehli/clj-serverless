@@ -83,3 +83,20 @@
 
 (defn update [client params]
   (js-call client "update" params))
+
+;; Used to generate dependencies for interceptorXS
+(defn table-name->deps [table-name]
+  (let [client (document-client table-name)]
+    #:dynamo-db
+    {;; Transaction methods
+     :condition-check-action (partial condition-check-action table-name)
+     :delete-action (partial delete-action table-name)
+     :put-action (partial put-action table-name)
+     :update-action (partial update-action table-name)
+     ;; Regular methods
+     :delete (partial delete client)
+     :get (partial get client)
+     :put (partial put client)
+     :query (partial query client)
+     :transact-write (partial transact-write client)
+     :update (partial update client)}))
