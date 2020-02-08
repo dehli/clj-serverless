@@ -3,9 +3,19 @@
             [serverless.aws.dynamo-db :as ddb]
             [serverless.env :refer [env->hash-map]]))
 
-(def assoc-event
-  {:name :assoc-event
-   :enter (fn [event] {:event event})
+(def assoc-raw-event
+  {:name :assoc-raw-event
+   :enter (fn [event] {:raw-event event})})
+
+(def assoc-ws-event
+  {:name :assoc-ws-event
+   :enter (fn [{:keys [raw-event] :as ctx}]
+            (let [sub (api/sub raw-event)]
+              (assoc ctx :event
+                     {:body (try (api/body raw-event) (catch :default e nil))
+                      :connection-id (api/connection-id raw-event)
+                      :route (api/route-key raw-event)
+                      :sub (when (not= sub "anonymous") sub)})))
    :leave (fn [_] {:statusCode 200})})
 
 (def assoc-env
@@ -25,7 +35,8 @@
                     (api/ws-event->deps event)))})
 
 (def ws-interceptors
-  [assoc-event
+  [assoc-raw-event
+   assoc-ws-event
    assoc-env
    merge-dynamo-db-deps
    merge-web-socket-deps])
