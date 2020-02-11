@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+include () {
+  [[ -f "$1" ]] && source "$1"
+}
+
+include ~/.clojars
+
 if [[ $(git rev-parse --show-toplevel) != $(pwd) ]]; then
   echo "Error: Not in root directory"
   exit 1

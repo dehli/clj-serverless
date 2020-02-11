@@ -1,7 +1,8 @@
 (ns serverless.interceptors.defaults
   (:require [serverless.aws.api-gateway :as api]
             [serverless.aws.dynamo-db :as ddb]
-            [serverless.env :refer [env->hash-map]]))
+            [serverless.env :refer [env->hash-map]]
+            [serverless.logger :as logger]))
 
 (def assoc-raw-event
   {:name :assoc-raw-event
@@ -22,6 +23,10 @@
   {:name :assoc-env
    :enter #(assoc % :env (env->hash-map))})
 
+(def merge-logger-deps
+  {:name :merge-logger-deps
+   :enter #(update % :deps merge (logger/context->deps %))})
+
 (def merge-dynamo-db-deps
   {:name :merge-dynamo-db-deps
    :enter (fn [{:keys [env] :as context}]
@@ -38,5 +43,6 @@
   [assoc-raw-event
    assoc-ws-event
    assoc-env
+   merge-logger-deps
    merge-dynamo-db-deps
    merge-web-socket-deps])

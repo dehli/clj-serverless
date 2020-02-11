@@ -1,7 +1,6 @@
 (ns serverless.aws.dynamo-db-replication
   (:require [serverless.aws.dynamo-db :as ddb]
-            [serverless.core.async :refer [go-try <? <<?]]
-            [serverless.logging :refer [log-debug]]))
+            [serverless.core.async :refer [go-try <? <<?]]))
 
 (defn- primary-model? [image]
   (= (:pk image) (:sk image)))
@@ -12,7 +11,6 @@
 
 (defn- update-dependent-row [client src-image {sk :sk}]
   (let [item (assoc src-image :sk sk)]
-    (log-debug item)
     (ddb/put client {:Item item})))
 
 (defn replicate-rows
@@ -23,7 +21,5 @@
       (when (and (ddb/modify? event) (primary-model? image))
         (log-debug image)
         (->> (<? (query-dependent-rows client image))
-             log-debug
              (map (partial update-dependent-row client image))
-             <<?
-             log-debug)))))
+             <<?)))))

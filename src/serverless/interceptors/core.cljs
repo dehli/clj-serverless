@@ -1,6 +1,5 @@
 (ns serverless.interceptors.core
-  (:require [serverless.core.async :refer [go-try channel? <!]]
-            [serverless.logging :refer [log-debug]]))
+  (:require [serverless.core.async :refer [go-try channel? <!]]))
 
 (defn- doseq-interceptors!
   [fn-key context interceptors]
@@ -11,7 +10,6 @@
             new-context (if (channel? chan-or-val)
                           (<! chan-or-val)
                           chan-or-val)]
-        (log-debug new-context)
         (reset! context new-context)))))
 
 (defn add-interceptors
