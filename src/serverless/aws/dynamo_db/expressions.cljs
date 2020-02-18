@@ -1,4 +1,4 @@
-(ns aws.dynamo-db.expressions
+(ns serverless.aws.dynamo-db.expressions
   (:require [clojure.string :refer [join replace]])
   (:refer-clojure :exclude [replace]))
 
