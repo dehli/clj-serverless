@@ -5,8 +5,8 @@
 (defonce ^:private CognitoIdentityServiceProvider
   (gobj/get AWS "CognitoIdentityServiceProvider"))
 
-(defonce ^:private service-provider ^:private
-  (CognitoIdentityServiceProvider.))
+(defonce ^:private service-provider
+  (new CognitoIdentityServiceProvider))
 
 (defonce admin-create-user
   (partial js-call service-provider "adminCreateUser"))
@@ -19,3 +19,6 @@
 
 (defonce list-users
   (partial js-call service-provider "listUsers"))
+
+(defn attribute [{attributes :UserAttributes} attribute]
+  (->> attributes (filter #(= (:Name %) attribute)) first :Value))
