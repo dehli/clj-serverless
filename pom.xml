@@ -6,19 +6,21 @@
     <url>https://github.com/dehli/serverless</url>
     <tag>HEAD</tag>
   </scm>
-
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>
-  <version>0.1.36</version>
+  <version>0.1.37</version>
   <name>serverless</name>
-
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
       <version>1.10.1</version>
+    </dependency>
+    <dependency>
+      <groupId>cider</groupId>
+      <artifactId>piggieback</artifactId>
+      <version>0.3.8</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
