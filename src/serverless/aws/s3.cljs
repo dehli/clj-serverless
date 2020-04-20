@@ -16,3 +16,10 @@
   (js-invoke client "getSignedUrl" operation params))
 (def get-object-signed-url (partial signed-url "getObject"))
 (def put-object-signed-url (partial signed-url "putObject"))
+
+;; Used to generate dependencies for interceptors
+(defn bucket->deps [bucket]
+  (let [client (bucket->s3 bucket)]
+    #:s3
+    {:get-object-signed-url (partial get-object-signed-url client)
+     :put-object-signed-url (partial put-object-signed-url client)}))

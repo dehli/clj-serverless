@@ -84,7 +84,7 @@
 (defn update [client params]
   (js-call client "update" params))
 
-;; Used to generate dependencies for interceptorXS
+;; Used to generate dependencies for interceptors
 (defn table-name->deps [table-name]
   (let [client (document-client table-name)]
     #:dynamo-db
