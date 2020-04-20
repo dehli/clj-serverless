@@ -9,15 +9,18 @@ fi
 clj -Spom
 clj -Abuild
 
+# Whitespace is sometimes injected
+sed -i.bak "s/[[:blank:]]*$//" pom.xml && rm pom.xml.bak
+sed -i.bak '/^$/d' pom.xml && rm pom.xml.bak
+
 # Verify that repo isn't dirty
 if [[ $(git diff --stat) != '' ]]; then
   echo "Error: dirty repo"
   exit 1
 fi
 
-# Replace HEAD with git sha
+# Insert git sha
 sed -i.bak "s/HEAD/$(git rev-parse HEAD)/g" pom.xml && rm pom.xml.bak
-sed -i.bak "s/\n//g" pom.xml && rm pom.xml.bak
 
 # Generate jar file
 rm -f whiskey.jar

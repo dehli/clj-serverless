@@ -14,7 +14,7 @@ clj -A:test              # Run tests
 ## Publishing version
 
 ```
-mvn deploy
+./scripts/pack_and_deploy
 ```
 
 > Note: `settings.xml` must be set in ~/.m2/settings.xml

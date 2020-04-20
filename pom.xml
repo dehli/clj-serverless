@@ -16,7 +16,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>
-  <version>0.1.37</version>
+  <version>0.1.38</version>
   <name>serverless</name>
   <dependencies>
     <dependency>
@@ -42,6 +42,11 @@
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+      </resource>
+    </resources>
   </build>
   <repositories>
     <repository>
