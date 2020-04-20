@@ -6,3 +6,4 @@ whiskey.jar
 out/
 build/
 cljs-test-runner-out/
+target/

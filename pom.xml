@@ -6,6 +6,13 @@
     <url>https://github.com/dehli/serverless</url>
     <tag>HEAD</tag>
   </scm>
+  <distributionManagement>
+    <repository>
+      <id>clojars</id>
+      <name>Clojars repository</name>
+      <url>https://clojars.org/repo</url>
+    </repository>
+  </distributionManagement>
   <modelVersion>4.0.0</modelVersion>
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>

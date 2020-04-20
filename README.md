@@ -14,5 +14,19 @@ clj -A:test              # Run tests
 ## Publishing version
 
 ```
-./scripts/pack_and_deploy
+mvn deploy
+```
+
+> Note: `settings.xml` must be set in ~/.m2/settings.xml
+
+```
+<settings>
+  <servers>
+    <server>
+      <id>clojars</id>
+      <username>username</username>
+      <password>password</password>
+    </server>
+  </servers>
+</settings>
 ```

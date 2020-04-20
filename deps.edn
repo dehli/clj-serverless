@@ -21,11 +21,4 @@
 
    :extra-deps
    {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
-                     :sha "2769a6224bfb938e777906ea311b3daf7d2220f5"}}}
-
-  :deploy
-  {:main-opts
-   ["-m" "deps-deploy.deps-deploy" "deploy" "whiskey.jar"]
-
-   :extra-deps
-   {deps-deploy {:mvn/version "RELEASE"}}}}}
+                     :sha "2769a6224bfb938e777906ea311b3daf7d2220f5"}}}}}

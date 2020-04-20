@@ -34,6 +34,6 @@ rm -f whiskey.jar
 clj -Apack
 
 # Upload to clojars
-clj -Adeploy
+mvn deploy
 
 sed -i "s/$(git rev-parse HEAD)/HEAD/g" pom.xml
