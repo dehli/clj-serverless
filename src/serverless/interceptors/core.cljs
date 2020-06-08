@@ -29,3 +29,12 @@
 
         ;; Return context
         @context))))
+
+(defn add-interceptors-promise
+  "Wraps add-interceptors with a Promise"
+  [interceptors handler]
+  (let [handler (add-interceptors interceptors handler)]
+    (fn [event]
+      (new js/Promise (fn [resolve reject]
+                        (go-try
+                          (resolve (<! (handler event)))))))))
