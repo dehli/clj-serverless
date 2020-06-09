@@ -1,6 +1,6 @@
 (ns serverless.aws.dynamo-db
   (:require [goog.object :as gobj]
-            [serverless.aws.sdk :refer [AWS js-call]]
+            [serverless.aws.sdk :refer [AWS js-call js-call-v2]]
             [serverless.core :refer [def-]])
   (:refer-clojure :exclude [get update]))
 
@@ -66,23 +66,23 @@
 ;; Regular Actions
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn delete [client params]
-  (js-call client "delete" params))
+(def delete
+  (partial js-call-v2 "delete" identity))
 
-(defn get [client params]
-  (js-call client "get" params))
+(def get
+  (partial js-call-v2 "get" identity))
 
-(defn put [client params]
-  (js-call client "put" params))
+(def put
+  (partial js-call-v2 "put" identity))
 
-(defn query [client params]
-  (js-call client "query" params))
+(def query
+  (partial js-call-v2 "query" identity))
 
 (defn transact-write [client actions]
   (js-call client "transactWrite" {:TransactItems actions}))
 
-(defn update [client params]
-  (js-call client "update" params))
+(def update
+  (partial js-call-v2 "update" identity))
 
 ;; Used to generate dependencies for interceptors
 (defn table-name->deps [table-name]
