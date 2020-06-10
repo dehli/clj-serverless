@@ -14,6 +14,9 @@
 (defonce admin-get-user
   (partial js-call service-provider "adminGetUser"))
 
+(defonce admin-initiate-auth
+  (partial js-call service-provider "adminInitiateAuth"))
+
 (defonce confirm-sign-up
   (partial js-call service-provider "confirmSignUp"))
 
