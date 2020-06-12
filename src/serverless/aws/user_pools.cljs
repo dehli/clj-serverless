@@ -17,6 +17,9 @@
 (defonce admin-initiate-auth
   (partial js-call service-provider "adminInitiateAuth"))
 
+(defonce admin-respond-to-auth-challenge
+  (partial js-call service-provider "adminRespondToAuthChallenge"))
+
 (defonce confirm-sign-up
   (partial js-call service-provider "confirmSignUp"))
 
