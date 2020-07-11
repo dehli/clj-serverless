@@ -10,6 +10,10 @@
 
 (def AWS (js/require "aws-sdk"))
 
+(defn export-handler!
+  [key handler]
+  (gobj/set js/exports (name key) handler))
+
 (defn- js-handler
   [clj-handler event]
   (js/Promise.
@@ -25,9 +29,7 @@
            (resolve (clj->js result :keyword-fn keyword->str))))))))
 
 (defn deflambda [key clj-handler]
-  (->> clj-handler
-       (partial js-handler)
-       (gobj/set js/exports (name key))))
+  (export-handler! key (partial js-handler clj-handler)))
 
 (defn call [service action args]
   (let [promise (-> service
