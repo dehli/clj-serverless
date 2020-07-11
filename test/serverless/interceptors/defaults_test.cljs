@@ -1,5 +1,8 @@
 (ns serverless.interceptors.defaults-test
-  (:require [cljs.test :refer [deftest is testing]]
+  (:require [cljs.test :refer [async deftest is testing]]
+            [cljs.core.async :refer [go]]
+            [cljs.core.async.interop :refer-macros [<p!]]
+            [serverless.interceptors.core :refer [add-interceptors]]
             [serverless.interceptors.defaults :as sut]))
 
 (deftest assoc-ws-event
@@ -31,3 +34,13 @@
     (testing "invalid JSON"
       (is-expected (assoc raw-event :body "{\"invalid")
                    (assoc expected :body nil)))))
+
+(deftest websocket-interceptors
+  (async done
+    (go
+      (let [handler (add-interceptors sut/ws-interceptors
+                                      #(assoc % :handler true))]
+        (is (= (js/JSON.stringify (<p! (handler {:hello "world"})))
+               "{\"statusCode\":200}"))
+
+        (done)))))

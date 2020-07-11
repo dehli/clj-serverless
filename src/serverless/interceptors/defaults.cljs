@@ -5,8 +5,8 @@
             [serverless.logger :as logger]))
 
 (def js<->clj
-  {:enter #(update % :request (js->clj % :keywordize-keys true))
-   :leave #(update % :response clj->js)})
+  {:enter (fn [ctx] (update ctx :request #(js->clj % :keywordize-keys true)))
+   :leave (fn [ctx] (update ctx :response clj->js))})
 
 (def assoc-raw-event
   {:name :assoc-raw-event
