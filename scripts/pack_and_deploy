@@ -6,7 +6,11 @@ if [[ $(git rev-parse --show-toplevel) != $(pwd) ]]; then
 fi
 
 # Generate pom file
-clj -Spom
+if [[ $1 != "--skip-pom" ]]; then
+    clj -Spom
+fi
+
+# Build code
 clj -Abuild
 
 # Whitespace is sometimes injected
