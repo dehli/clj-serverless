@@ -6,38 +6,40 @@
 
 (def assoc-raw-event
   {:name :assoc-raw-event
-   :enter (fn [event] {:raw-event event})})
+   :enter (fn [{:keys [request] :as ctx}]
+            (assoc ctx :request {:raw-event request}))})
 
 (def assoc-ws-event
   {:name :assoc-ws-event
-   :enter (fn [{:keys [raw-event] :as ctx}]
-            (let [sub (api/sub raw-event)]
-              (assoc ctx :event
-                     {:body (try (api/body raw-event) (catch :default e nil))
-                      :connection-id (api/connection-id raw-event)
-                      :route (api/route-key raw-event)
-                      :sub (when (not= sub "anonymous") sub)})))
-   :leave (fn [_] {:statusCode 200})})
+   :enter (fn [{:keys [request] :as ctx}]
+            (let [raw-event (:raw-event request)
+                  sub (api/sub raw-event)]
+              (assoc-in ctx [:request :event]
+                        {:body (try (api/body raw-event) (catch :default _ nil))
+                         :connection-id (api/connection-id raw-event)
+                         :route (api/route-key raw-event)
+                         :sub (when (not= sub "anonymous") sub)})))
+   :leave (fn [ctx] (assoc ctx :response {:statusCode 200}))})
 
 (def assoc-env
   {:name :assoc-env
-   :enter #(assoc % :env (env->hash-map))})
+   :enter #(assoc-in % [:request :env] (env->hash-map))})
 
 (def merge-logger-deps
   {:name :merge-logger-deps
-   :enter #(update % :deps merge (logger/context->deps %))})
+   :enter #(update-in % [:request :deps] merge (logger/context->deps %))})
 
 (def merge-dynamo-db-deps
   {:name :merge-dynamo-db-deps
-   :enter (fn [{:keys [env] :as context}]
-            (update context :deps merge
-                    (ddb/table-name->deps (:table-name env))))})
+   :enter (fn [ctx]
+            (update-in ctx [:request :deps] merge
+                       (ddb/table-name->deps (get-in ctx [:env :table-name]))))})
 
 (def merge-web-socket-deps
   {:name :merge-web-socket-deps
-   :enter (fn [{:keys [raw-event] :as context}]
-            (update context :deps merge
-                    (api/ws-event->deps raw-event)))})
+   :enter (fn [{:keys [request] :as context}]
+            (update-in context [:request :deps] merge
+                       (api/ws-event->deps (:raw-event request))))})
 
 (def ws-interceptors
   [assoc-raw-event

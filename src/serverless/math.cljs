@@ -1,6 +1,6 @@
 (ns serverless.math)
 
-(defonce ^:private radians-per-degree
+(def ^:private radians-per-degree
   (/ js/Math.PI 180))
 
 (defn degrees->radians [degrees]

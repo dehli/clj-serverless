@@ -7,3 +7,4 @@ out/
 build/
 cljs-test-runner-out/
 target/
+.clj-kondo/.cache

@@ -1,8 +1,14 @@
 (ns serverless.aws.core
-  (:require [cljs.core.async :refer [go <!]]
+  (:require [applied-science.js-interop :as j]
+            [camel-snake-kebab.core :as csk]
+            [camel-snake-kebab.extras :as cske]
+            [cljs.core.async.interop :refer-macros [<p!]]
+            [cljs.core.async :refer [go <!]]
             [goog.object :as gobj]
-            [serverless.core.async :refer [channel?]]
+            [serverless.core.async :refer [channel? go-try]]
             [serverless.json :refer [keyword->str]]))
+
+(def AWS (js/require "aws-sdk"))
 
 (defn- js-handler
   [clj-handler event]
@@ -22,3 +28,11 @@
   (->> clj-handler
        (partial js-handler)
        (gobj/set js/exports (name key))))
+
+(defn call [service action args]
+  (let [promise (-> service
+                    (j/call (csk/->camelCase action)
+                            (cske/transform-keys csk/->PascalCase args))
+                    (j/call :promise))]
+    (go-try
+      (cske/transform-keys csk/->kebab-case (<p! promise)))))

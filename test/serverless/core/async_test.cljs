@@ -1,5 +1,5 @@
 (ns serverless.core.async-test
-  (:require [cljs.core.async :refer [go <! put! promise-chan]]
+  (:require [cljs.core.async :refer [go]]
             [cljs.test :refer [async deftest is]]
             [serverless.core.async :refer [<? <<? go-try]]))
 

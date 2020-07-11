@@ -19,7 +19,6 @@
   (go-try
     (let [image (ddb/new-image event)]
       (when (and (ddb/modify? event) (primary-model? image))
-        (log-debug image)
         (->> (<? (query-dependent-rows client image))
              (map (partial update-dependent-row client image))
              <<?)))))

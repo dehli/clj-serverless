@@ -1,6 +1,6 @@
 (ns serverless.aws.s3
   (:require [goog.object :as gobj]
-            [serverless.aws.sdk :refer [AWS js-call]]))
+            [serverless.aws.sdk :refer [AWS]]))
 
 (def ^:private S3 (gobj/get AWS "S3"))
 

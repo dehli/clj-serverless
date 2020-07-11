@@ -1,27 +1,24 @@
 (ns serverless.env
-  (:require [clojure.string :as string]
+  (:require [applied-science.js-interop :as j]
+            [camel-snake-kebab.core :as csk]
+            [camel-snake-kebab.extras :as cske]
             [goog.object :as gobj]))
 
 (defn env
-  ([] (gobj/get js/process "env"))
-  ([key] (gobj/get (env) key)))
-
-(defn- env-var->keyword [env-var]
-  "Ex: AWS_REGION -> :aws-region"
-  (-> env-var string/lower-case (string/replace "_" "-") keyword))
+  ([] (j/get js/process :env))
+  ([key] (j/get (env) key)))
 
 (defn env->hash-map
   ([] (env->hash-map (env)))
   ([env] (->> (zipmap (gobj/getKeys env) (gobj/getValues env))
-              (map (fn [[k v]] [(env-var->keyword k) v]))
-              (into {}))))
-
+              (into {})
+              (cske/transform-keys csk/->kebab-case-keyword))))
 
 (def aws-lambda-function-name
-  (env "AWS_LAMBDA_FUNCTION_NAME"))
+  (env :AWS_LAMBDA_FUNCTION_NAME))
 
 (def aws-region
-  (env "AWS_REGION"))
+  (env :AWS_REGION))
 
 (def logging-level
-  (env "LOGGING_LEVEL"))
+  (env :LOGGING_LEVEL))

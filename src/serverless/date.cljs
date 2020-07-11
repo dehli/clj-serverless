@@ -1,4 +1,9 @@
-(ns serverless.date)
+(ns serverless.date
+  (:require [tick.alpha.api :as t]))
+
+(defn ms-since-epoch
+  ([] (ms-since-epoch (t/now)))
+  ([time] (t/millis (t/between (t/epoch) time))))
 
 (defn now
   "Milliseconds since epoch (now)"

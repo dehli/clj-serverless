@@ -1,12 +1,11 @@
 (ns serverless.aws.dynamo-db
   (:require [goog.object :as gobj]
-            [serverless.aws.sdk :refer [AWS js-call js-call-v2]]
-            [serverless.core :refer [def-]])
+            [serverless.aws.sdk :refer [AWS js-call js-call-v2]])
   (:refer-clojure :exclude [get update]))
 
-(def- DynamoDB (gobj/get AWS "DynamoDB"))
-(def- DocumentClient (gobj/get DynamoDB "DocumentClient"))
-(def- Converter (gobj/get DynamoDB "Converter"))
+(def DynamoDB (gobj/get AWS "DynamoDB"))
+(def DocumentClient (gobj/get DynamoDB "DocumentClient"))
+(def Converter (gobj/get DynamoDB "Converter"))
 
 (def unmarshall
   (let [unmarshall (gobj/get Converter "unmarshall")]
@@ -16,7 +15,7 @@
 ;; Streams (assumes batch size = 1)
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def- record (comp first :Records))
+(def record (comp first :Records))
 
 (defn- event-name? [type record]
   (= (:eventName record) type))
@@ -32,7 +31,7 @@
 ;; Document Clients
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def- default-client
+(def default-client
   (new DocumentClient))
 
 (defn document-client [table-name]

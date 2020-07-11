@@ -16,7 +16,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>
-  <version>0.1.44</version>
+  <version>0.1.45</version>
   <name>serverless</name>
   <dependencies>
     <dependency>
@@ -25,18 +25,45 @@
       <version>1.10.1</version>
     </dependency>
     <dependency>
+      <groupId>tick</groupId>
+      <artifactId>tick</artifactId>
+      <version>0.4.26-alpha</version>
+    </dependency>
+    <dependency>
+      <groupId>appliedscience</groupId>
+      <artifactId>js-interop</artifactId>
+      <version>0.2.4</version>
+    </dependency>
+    <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojurescript</artifactId>
-      <version>1.10.597</version>
+      <version>1.10.773</version>
+    </dependency>
+    <dependency>
+      <groupId>cljs-bean</groupId>
+      <artifactId>cljs-bean</artifactId>
+      <version>1.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>camel-snake-kebab</groupId>
+      <artifactId>camel-snake-kebab</artifactId>
+      <version>0.4.1</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>core.async</artifactId>
-      <version>0.7.559</version>
+      <version>1.2.603</version>
+    </dependency>
+    <dependency>
+      <groupId>metosin</groupId>
+      <artifactId>sieppari</artifactId>
+      <version>0.0.0-alpha13</version>
     </dependency>
   </dependencies>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <build>
+      <sourceDirectory>src</sourceDirectory>
+    </build>
     <resources>
       <resource>
         <directory>src</directory>

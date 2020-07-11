@@ -15,9 +15,9 @@
                   :sub "my-sub"}
 
         is-expected (fn [raw-event expected]
-                      (is (= (enter {:raw-event raw-event})
-                             {:raw-event raw-event
-                              :event expected})))]
+                      (is (= (enter {:request {:raw-event raw-event}})
+                             {:request {:raw-event raw-event
+                                        :event expected}})))]
 
     (testing "valid request"
       (is-expected raw-event expected))
