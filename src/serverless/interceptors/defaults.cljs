@@ -4,6 +4,10 @@
             [serverless.env :refer [env->hash-map]]
             [serverless.logger :as logger]))
 
+(def js<->clj
+  {:enter #(update % :request (js->clj % :keywordize-keys true))
+   :leave #(update % :response clj->js)})
+
 (def assoc-raw-event
   {:name :assoc-raw-event
    :enter (fn [{:keys [request] :as ctx}]
@@ -42,7 +46,8 @@
                        (api/ws-event->deps (:raw-event request))))})
 
 (def ws-interceptors
-  [assoc-raw-event
+  [js<->clj
+   assoc-raw-event
    assoc-ws-event
    assoc-env
    merge-logger-deps
