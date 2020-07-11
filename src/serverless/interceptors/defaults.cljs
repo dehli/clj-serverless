@@ -5,7 +5,8 @@
             [serverless.logger :as logger]))
 
 (def js<->clj
-  {:enter (fn [ctx] (update ctx :request #(js->clj % :keywordize-keys true)))
+  {:name :js-clj
+   :enter (fn [ctx] (update ctx :request #(js->clj % :keywordize-keys true)))
    :leave (fn [ctx] (update ctx :response clj->js))})
 
 (def assoc-raw-event
@@ -31,13 +32,16 @@
 
 (def merge-logger-deps
   {:name :merge-logger-deps
-   :enter #(update-in % [:request :deps] merge (logger/context->deps %))})
+   :enter (fn [{:keys [request] :as ctx}]
+            (update-in ctx [:request :deps] merge
+                       (logger/context->deps request)))})
 
 (def merge-dynamo-db-deps
   {:name :merge-dynamo-db-deps
-   :enter (fn [ctx]
-            (update-in ctx [:request :deps] merge
-                       (ddb/table-name->deps (get-in ctx [:env :table-name]))))})
+   :enter (fn [{:keys [request] :as ctx}]
+            (let [{:keys [table-name]} (:env request)]
+              (update-in ctx [:request :deps] merge
+                         (ddb/table-name->deps table-name))))})
 
 (def merge-web-socket-deps
   {:name :merge-web-socket-deps
