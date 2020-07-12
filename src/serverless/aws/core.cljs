@@ -1,7 +1,6 @@
 (ns serverless.aws.core
   (:require [applied-science.js-interop :as j]
             [camel-snake-kebab.core :as csk]
-            [camel-snake-kebab.extras :as cske]
             [cljs.core.async.interop :refer-macros [<p!]]
             [cljs.core.async :refer [go <!]]
             [goog.object :as gobj]
@@ -33,8 +32,7 @@
 
 (defn call [service action args]
   (let [promise (-> service
-                    (j/call (csk/->camelCase action)
-                            (cske/transform-keys csk/->PascalCase args))
+                    (j/call (csk/->camelCase action) (clj->js args))
                     (j/call :promise))]
     (go-try
-      (cske/transform-keys csk/->kebab-case (<p! promise)))))
+      (js->clj (<p! promise) :keywordize-keys true))))
