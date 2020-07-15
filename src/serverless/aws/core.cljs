@@ -9,6 +9,12 @@
 
 (def AWS (js/require "aws-sdk"))
 
+(defn service
+  ([keys] (service keys {}))
+  ([keys options]
+   (let [Service (apply j/get-in [AWS keys])]
+     (new Service (clj->js options)))))
+
 (defn export-handler!
   [key handler]
   (gobj/set js/exports (name key) handler))
