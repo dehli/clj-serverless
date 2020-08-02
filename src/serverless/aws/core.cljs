@@ -1,19 +1,8 @@
 (ns serverless.aws.core
-  (:require [applied-science.js-interop :as j]
-            [camel-snake-kebab.core :as csk]
-            [cljs.core.async.interop :refer-macros [<p!]]
-            [cljs.core.async :refer [go <!]]
+  (:require [cljs.core.async :refer [go <!]]
             [goog.object :as gobj]
-            [serverless.core.async :refer [channel? go-try]]
+            [serverless.core.async :refer [channel?]]
             [serverless.json :refer [keyword->str]]))
-
-(def AWS (js/require "aws-sdk"))
-
-(defn service
-  ([keys] (service keys {}))
-  ([keys options]
-   (let [Service (apply j/get-in [AWS keys])]
-     (new Service (clj->js options)))))
 
 (defn export-handler!
   [key handler]
@@ -35,10 +24,3 @@
 
 (defn deflambda [key clj-handler]
   (export-handler! key (partial js-handler clj-handler)))
-
-(defn call [service action args]
-  (let [promise (-> service
-                    (j/call (csk/->camelCase action) (clj->js args))
-                    (j/call :promise))]
-    (go-try
-      (js->clj (<p! promise) :keywordize-keys true))))
