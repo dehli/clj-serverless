@@ -1,12 +1,14 @@
 (ns serverless.aws.sdk-test
-  (:require [cljs.core.async :refer [go <!]]
+  (:require [cljs-bean.core :refer [->clj]]
+            [cljs.core.async :refer [go <!]]
             [cljs.test :refer [async deftest is]]
             [serverless.aws.sdk :as sut]))
 
-(deftest transform-service-options
-  (is (= (#'sut/transform-service-options
-          {:params {:table-name "my-table-name"}
-           :convert-empty-values true})
+(deftest ->js-options
+  (is (= (-> {:params {:table-name "my-table-name"}
+              :convert-empty-values true}
+             (#'sut/->js-options)
+             ->clj)
 
          {:params {:TableName "my-table-name"}
           :convertEmptyValues true})))
@@ -20,8 +22,9 @@
                             #js {:promise
                                  #(js/Promise.resolve #js {:HelloWorld true})})}
 
-            response (<! (sut/call mock-service {:method :get-item
-                                                 :params {:key {:id "i"}}}))]
+            response (<! (sut/call mock-service
+                                   :get-item {:key {:id "i"}}))]
+
         (is (= response {:hello-world true})))
 
       (done))))

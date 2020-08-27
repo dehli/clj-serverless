@@ -1,13 +1,8 @@
-(ns serverless.json)
+(ns serverless.json
+  (:require [cljs-bean.core :refer [->clj ->js]]))
 
-(defn keyword->str
-  [k]
-  (-> k str (subs 1)))
+(defn clj->json [clj-obj]
+  (-> clj-obj ->js js/JSON.stringify))
 
-(defn clj->json
-  [& x]
-  (-> clj->js (apply x) js/JSON.stringify))
-
-(defn json->clj
-  [x & opts]
-  (apply js->clj (conj opts (js/JSON.parse x))))
+(defn json->clj [json-str]
+  (-> json-str js/JSON.parse ->clj))

@@ -1,7 +1,17 @@
 (ns serverless.interceptors.core
-  (:require [sieppari.core :as s]
+  (:require [serverless.interceptors.env :refer [assoc-env]]
+            [serverless.interceptors.event :refer [assoc-event]]
+            [serverless.interceptors.now :refer [assoc-now]]
+            [serverless.interceptors.raw-event :refer [assoc-raw-event]]
+            [sieppari.core :as s]
             [sieppari.async.core-async]))
 
-(defn add-interceptors [interceptors handler]
+(defn interceptors->handler [interceptors]
   (fn [event]
-    (js/Promise. #(s/execute (conj interceptors handler) event %1 %2))))
+    (js/Promise. #(s/execute (into [] interceptors) event %1 %2))))
+
+(def common-interceptors
+  [assoc-raw-event
+   assoc-event
+   assoc-env
+   assoc-now])

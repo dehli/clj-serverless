@@ -4,12 +4,12 @@
             [cljs.test :refer [async deftest is]]
             [serverless.interceptors.core :as sut]))
 
-(deftest add-interceptors
+(deftest interceptors->handler
   (async done
     (go
-      (let [handler (sut/add-interceptors
-                     [{:enter #(assoc-in % [:request :a] 1)}]
-                     #(assoc % :b 2))]
+      (let [handler (sut/interceptors->handler
+                     [{:enter #(assoc-in % [:request :a] 1)}
+                      #(assoc % :b 2)])]
 
         (is (= (<p! (handler {:c 3}))
                {:a 1 :b 2 :c 3}))
