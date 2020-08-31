@@ -1,6 +1,5 @@
 (ns serverless.interceptors.env
-  (:require [applied-science.js-interop :as j]
-            [camel-snake-kebab.core :as csk]
+  (:require [camel-snake-kebab.core :as csk]
             [camel-snake-kebab.extras :as cske]
             [goog.object :as gobj]))
 
@@ -11,5 +10,9 @@
 
 (def assoc-env
   {:name :serverless/assoc-env
-   :enter #(assoc-in % [:request :serverless/env]
-                     (env->hash-map (j/get js/process :env)))})
+   :enter (fn [context]
+            (assoc-in context
+                      [:request :serverless/env]
+                      (-> context
+                          (get-in [:request :serverless/raw-env])
+                          env->hash-map)))})

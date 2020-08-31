@@ -16,7 +16,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <name>serverless</name>
   <dependencies>
     <dependency>
@@ -33,6 +33,11 @@
       <groupId>appliedscience</groupId>
       <artifactId>js-interop</artifactId>
       <version>0.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cognitect</groupId>
+      <artifactId>transit-cljs</artifactId>
+      <version>0.8.264</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>

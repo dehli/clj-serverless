@@ -5,6 +5,7 @@
         appliedscience/js-interop {:mvn/version "0.2.5"}
         camel-snake-kebab {:mvn/version "0.4.1"}
         cljs-bean {:mvn/version "1.6.0"}
+        com.cognitect/transit-cljs {:mvn/version "0.8.264"}
         metosin/sieppari {:mvn/version "0.0.0-alpha13"}
         tick {:mvn/version "0.4.26-alpha"}}
 
