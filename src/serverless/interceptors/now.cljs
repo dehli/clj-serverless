@@ -4,4 +4,4 @@
 (def assoc-now
   {:name :serverless/assoc-now
    :enter (fn [context]
-            (assoc-in context [:request :serverless/now] (t/now)))})
+            (assoc context :serverless/now (t/now)))})

@@ -10,9 +10,5 @@
 
 (def assoc-env
   {:name :serverless/assoc-env
-   :enter (fn [context]
-            (assoc-in context
-                      [:request :serverless/env]
-                      (-> context
-                          (get-in [:request :serverless/raw-env])
-                          env->hash-map)))})
+   :enter (fn [{:keys [serverless/raw-env] :as context}]
+            (assoc context :serverless/env (env->hash-map raw-env)))})

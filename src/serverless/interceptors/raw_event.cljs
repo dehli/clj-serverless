@@ -2,5 +2,4 @@
 
 (def assoc-raw-event
   {:name :serverless/assoc-raw-event
-   :enter (fn [{:keys [request] :as context}]
-            (assoc context :request {:serverless/raw-event request}))})
+   :enter #(assoc % :serverless/raw-event (:request %))})
