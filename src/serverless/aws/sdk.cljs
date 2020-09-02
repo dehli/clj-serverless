@@ -8,31 +8,23 @@
 
 (def AWS (js/require "aws-sdk"))
 
-(defn- ->js-params [params]
-  (->> params
-       (map (fn [[k v]]
-              [(csk/->PascalCase k)
-               v]))
-       (into {})
-       ->js))
+(defn- ->PascalCase [params]
+  (cske/transform-keys csk/->PascalCase params))
 
 (defn call [service method params]
   (let [promise (-> service
-                    (j/call (csk/->camelCase method) (->js-params params))
+                    (j/call (csk/->camelCase method) (->js (->PascalCase params)))
                     (j/call :promise))]
     (go-try
       (cske/transform-keys csk/->kebab-case (->clj (<p! promise))))))
 
-(defn- ->js-options [options]
+(defn- format-options [options]
   (->> options
-       (map (fn [[k v]]
-              [(csk/->camelCase k)
-               (cske/transform-keys csk/->PascalCase v)]))
-       (into {})
-       ->js))
+       (map (fn [[k v]] [(csk/->camelCase k) (->PascalCase v)]))
+       (into {})))
 
 (defn service
   ([keys] (service keys {}))
   ([keys options]
    (let [Service (apply j/get-in [AWS (map csk/->PascalCase keys)])]
-     (new Service (->js-options options)))))
+     (new Service (->js (format-options options))))))
