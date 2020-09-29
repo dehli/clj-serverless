@@ -1,10 +1,16 @@
 (ns serverless.core.async-test
   (:require [cljs.core.async :refer [go]]
             [cljs.test :refer [async deftest is]]
-            [serverless.core.async :refer [<? <<? go-try]]))
+            [serverless.core.async :refer [<! <? <<? go-try]]))
 
 (defonce ^:private error-channel
   (go (js/Error "my-error")))
+
+(deftest take-non-channel
+  (async done
+    (go-try
+      (is (= (<! "abc") "abc"))
+      (done))))
 
 (deftest throws-on-error
   (async done

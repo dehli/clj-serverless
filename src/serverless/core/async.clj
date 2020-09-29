@@ -11,8 +11,13 @@
            (async/>! chan# result#))))
      chan#))
 
+(defmacro <! [ch]
+  `(if (serverless.core.async/channel? ~ch)
+     (async/<! ~ch)
+     ~ch))
+
 (defmacro <? [ch]
-  `(let [val# (async/<! ~ch)]
+  `(let [val# (serverless.core.async/<! ~ch)]
      (if (instance? js/Error val#)
        (throw val#)
        val#)))
@@ -26,5 +31,5 @@
 (defmacro <<! [chans]
   `(let [res# (atom [])]
      (doseq [c# ~chans]
-       (swap! res# conj (async/<! c#)))
+       (swap! res# conj (serverless.core.async/<! c#)))
      @res#))

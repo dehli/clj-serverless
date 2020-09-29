@@ -4,14 +4,16 @@
 
 AWS serverless helpers targeting Cljs.
 
-## Commands
+## Developing the Library
+
+### Commands
 
 ```
 clj -A:build (--watch)   # Build code
 clj -A:test              # Run tests
 ```
 
-## Publishing version
+### Publishing version
 
 ```
 ./scripts/pack_and_deploy
@@ -19,7 +21,7 @@ clj -A:test              # Run tests
 
 > Note: `settings.xml` must be set in ~/.m2/settings.xml
 
-```
+```xml
 <settings>
   <servers>
     <server>
