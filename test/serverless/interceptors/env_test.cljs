@@ -10,5 +10,5 @@
            {:aws-region "us-east-1" :fn-name "test"}))))
 
 (deftest assoc-env-with-actual-env
-  (let [ctx (tu/execute-with-context {} [sut/assoc-env])]
+  (let [ctx (tu/execute-with-context {} [sut/assoc-raw-env sut/assoc-env])]
     (is (map? (::sut/env ctx)))))
