@@ -1,7 +1,6 @@
 (ns serverless.interceptors.event
-  (:require [camel-snake-kebab.core :as csk]
-            [camel-snake-kebab.extras :as cske]
-            [cljs-bean.core :refer [->clj ->js]]))
+  (:require [cljs-bean.core :refer [->js]]
+            [serverless.interop :refer [->clj-kebab-case]]))
 
 (def assoc-raw-event
   {:name ::assoc-raw-event
@@ -10,6 +9,5 @@
 (def assoc-event
   {:name ::assoc-event
    :enter (fn [{:keys [::raw-event] :as ctx}]
-            (assoc ctx ::event (cske/transform-keys csk/->kebab-case (->clj raw-event))))
-
+            (assoc ctx ::event (->clj-kebab-case raw-event)))
    :leave #(update % :response ->js)})
