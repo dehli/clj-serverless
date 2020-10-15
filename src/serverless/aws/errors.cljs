@@ -1,7 +1,11 @@
 (ns serverless.aws.errors
   (:require [applied-science.js-interop :as j]
-            [camel-snake-kebab.core :as csk])
-  (:refer-clojure :exclude [name]))
+            [camel-snake-kebab.core :as csk]))
 
-(defn name [error]
-  (csk/->kebab-case-keyword (j/get error :name)))
+(defn code
+  [error]
+  (-> error (j/get :code) csk/->kebab-case-keyword))
+
+(defn message
+  [error]
+  (j/get error :message))
