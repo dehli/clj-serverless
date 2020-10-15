@@ -4,5 +4,5 @@
   (:refer-clojure :exclude [name]))
 
 (deftest name
-  (is (= (sut/name #js {:name "ValidationException"})
+  (is (= (sut/code #js {:code "ValidationException"})
          :validation-exception)))
