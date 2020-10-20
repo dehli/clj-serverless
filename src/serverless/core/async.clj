@@ -12,9 +12,10 @@
      chan#))
 
 (defmacro <! [ch]
-  `(if (serverless.core.async/channel? ~ch)
-     (async/<! ~ch)
-     ~ch))
+  `(let [val# ~ch]
+     (if (serverless.core.async/channel? val#)
+       (async/<! val#)
+       val#)))
 
 (defmacro <? [ch]
   `(let [val# (serverless.core.async/<! ~ch)]
