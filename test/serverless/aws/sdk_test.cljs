@@ -1,17 +1,19 @@
 (ns serverless.aws.sdk-test
-  (:require [cljs.core.async :refer [go <!]]
+  (:require [applied-science.js-interop :as j]
+            [cljs.core.async :refer [go <!]]
             [cljs.test :refer [async deftest is]]
             [serverless.aws.sdk :as sut]))
 
-(deftest format-options
-  (is (= (#'sut/format-options
-          {:params {:table-name "my-table-name"}
-           :convert-empty-values true})
+(deftest service
+  (let [table-name (str (random-uuid))
+        ddb (sut/service [:dynamo-d-b :document-client]
+                         {:params {:table-name table-name}
+                          :convert-empty-values true})]
 
-         {:params {:TableName "my-table-name"}
-          :convertEmptyValues true})))
+    (is (j/get-in ddb [:options :convertEmptyValues]))
+    (is (= (j/get-in ddb [:options :params :TableName]) table-name))))
 
-(deftest aws-call
+(deftest call
   (async done
     (go
       (let [mock-service
