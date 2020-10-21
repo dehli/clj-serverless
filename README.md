@@ -11,6 +11,7 @@ AWS serverless helpers targeting Cljs.
 ```
 clj -A:build (--watch)   # Build code
 clj -A:test              # Run tests
+npm run lint             # Lint codebase
 ```
 
 ### Publishing version
