@@ -16,27 +16,27 @@
   (:refer-clojure :exclude [read]))
 
 (def time-classes
-  {'period Period
-   'date LocalDate
-   'date-time LocalDateTime
-   'zoned-date-time ZonedDateTime
-   'instant Instant
-   'time LocalTime
-   'duration Duration
-   'year Year
-   'year-month YearMonth
-   'zone ZoneId
-   'day-of-week DayOfWeek
-   'month Month})
+  {'time/period Period
+   'time/date LocalDate
+   'time/date-time LocalDateTime
+   'time/zoned-date-time ZonedDateTime
+   'time/instant Instant
+   'time/time LocalTime
+   'time/duration Duration
+   'time/year Year
+   'time/year-month YearMonth
+   'time/zone ZoneId
+   'time/day-of-week DayOfWeek
+   'time/month Month})
 
 (def write-handlers
   (into {}
     (for [[tick-class host-class] time-classes]
-      [host-class (t/write-handler (constantly (name tick-class)) str)])))
+      [host-class (t/write-handler (constantly tick-class) str)])))
 
 (def read-handlers
   (into {} (for [[sym fun] time-literals.read-write/tags]
-             [(name sym) (t/read-handler fun)])))
+             [sym (t/read-handler fun)])))
 
 (def ^:private default-reader (t/reader :json {:handlers read-handlers}))
 (def ^:private default-writer (t/writer :json {:handlers write-handlers}))
