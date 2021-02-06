@@ -18,3 +18,20 @@
   "Recursively transforms all keyword map keys in coll with t."
   [t coll]
   (postwalk #(kv-transform-keywords t %) coll))
+
+(defn map->nsmap
+  "Adds ns to each unqualified keyword in map
+
+  Example usage:
+
+  (map->nsmap {:x 0 :foo/y 1} \"abc\") ;; -> {:abc/x 0 :foo/y 1}
+  "
+  [map ns]
+  (reduce-kv (fn [acc k v]
+               (let [new-kw (if (and (keyword? k)
+                                     (not (qualified-keyword? k)))
+                              (keyword (str ns) (name k))
+                              k)]
+                 (assoc acc new-kw v)))
+             {}
+             map))
