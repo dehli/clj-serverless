@@ -20,19 +20,19 @@
   <name>serverless</name>
   <dependencies>
     <dependency>
+      <groupId>metosin</groupId>
+      <artifactId>potpuri</artifactId>
+      <version>0.5.3</version>
+    </dependency>
+    <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.10.1</version>
+      <version>1.10.2</version>
     </dependency>
     <dependency>
       <groupId>tick</groupId>
       <artifactId>tick</artifactId>
-      <version>0.4.26-alpha</version>
-    </dependency>
-    <dependency>
-      <groupId>appliedscience</groupId>
-      <artifactId>js-interop</artifactId>
-      <version>0.2.5</version>
+      <version>0.4.30-alpha</version>
     </dependency>
     <dependency>
       <groupId>com.cognitect</groupId>
@@ -48,6 +48,11 @@
       <groupId>cljs-bean</groupId>
       <artifactId>cljs-bean</artifactId>
       <version>1.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>applied-science</groupId>
+      <artifactId>js-interop</artifactId>
+      <version>0.2.7</version>
     </dependency>
     <dependency>
       <groupId>camel-snake-kebab</groupId>
