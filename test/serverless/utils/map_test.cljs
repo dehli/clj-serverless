@@ -19,3 +19,11 @@
                                   "KeepMe" {:foo-bar "baz"}})
          {:myTest {:aBC "def"}
           "KeepMe" {:fooBar "baz"}})))
+
+(deftest map->nsmap
+  (is (= (sut/map->nsmap {:x 0 :foo/y 1} "abc")
+         {:abc/x 0 :foo/y 1})))
+
+(deftest nsmap->map
+  (is (= (sut/nsmap->map {:a/x 0 :a/y 1 "z" 2})
+         {:x 0 :y 1 "z" 2})))

@@ -1,5 +1,6 @@
 (ns serverless.utils.map
-  (:require [clojure.walk :refer [postwalk]]))
+  (:require [clojure.walk :refer [postwalk]]
+            [potpuri.core :as p]))
 
 (defn kv-transform-keywords
   "Transform a map's keywords and optionally their values as well.
@@ -35,3 +36,17 @@
                  (assoc acc new-kw v)))
              {}
              map))
+
+(defn nsmap->map
+  "Removes ns from each qualified keyword in map
+
+  Example usage:
+
+  (nsmap->map {:a/x 0}) ;; -> {:x 0}
+  "
+  [map]
+  (p/map-keys (fn [k]
+                (if (keyword? k)
+                  (keyword (name k))
+                  k))
+              map))
