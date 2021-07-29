@@ -7,8 +7,7 @@
         cljs-bean/cljs-bean {:mvn/version "1.6.0"}
         com.cognitect/transit-cljs {:mvn/version "0.8.264"}
         metosin/potpuri {:mvn/version "0.5.3"}
-        metosin/sieppari {:mvn/version "0.0.0-alpha13"}
-        tick/tick {:mvn/version "0.4.30-alpha"}}
+        metosin/sieppari {:mvn/version "0.0.0-alpha13"}}
 
  :paths ["src"]
 
