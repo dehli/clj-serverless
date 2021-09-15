@@ -4,7 +4,7 @@
 
 (defn code
   [error]
-  (-> error (j/get :code) csk/->kebab-case-keyword))
+  (some-> error (j/get :code) csk/->kebab-case-keyword))
 
 (defn message
   [error]
