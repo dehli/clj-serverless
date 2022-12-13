@@ -7,7 +7,7 @@
 
 (defn ->clj-kebab-case
   [obj]
-  (cske/transform-keys csk/->kebab-case (->clj obj)))
+  (cske/transform-keys csk/->kebab-case-keyword (->clj obj :keywordize-keys false)))
 
 (defn ->jsCamelCase
   [obj]
