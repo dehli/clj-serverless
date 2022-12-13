@@ -16,7 +16,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dehli</groupId>
   <artifactId>serverless</artifactId>
-  <version>0.3.3</version>
+  <version>0.3.4</version>
   <name>serverless</name>
   <dependencies>
     <dependency>
