@@ -9,8 +9,11 @@ AWS serverless helpers targeting Cljs.
 ### Commands
 
 ```
-clj -A:build (--watch)   # Build code
-clj -A:test              # Run tests
+clj -M:build (--watch)   # Build code
+clj -M:outdated          # Check for outdated clj desp
+clj -M:test              # Run tests
+
+npm outdated             # Check for outdated js deps
 npm run lint             # Lint codebase
 ```
 
