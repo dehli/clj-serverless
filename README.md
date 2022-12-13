@@ -9,8 +9,10 @@ AWS serverless helpers targeting Cljs.
 ### Commands
 
 ```
+clj -Spom                # Update pom.xml
+
 clj -M:build (--watch)   # Build code
-clj -M:outdated          # Check for outdated clj desp
+clj -M:outdated          # Check for outdated clj deps
 clj -M:test              # Run tests
 
 npm outdated             # Check for outdated js deps

@@ -1,11 +1,11 @@
-{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
-        org.clojure/clojurescript {:mvn/version "1.10.879"}
-        org.clojure/core.async {:mvn/version "1.4.627"}
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/clojurescript {:mvn/version "1.11.60"}
+        org.clojure/core.async {:mvn/version "1.6.673"}
 
-        applied-science/js-interop {:mvn/version "0.3.1"}
-        camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.2"}
-        cljs-bean/cljs-bean {:mvn/version "1.7.0"}
-        com.cognitect/transit-cljs {:mvn/version "0.8.269"}
+        applied-science/js-interop {:mvn/version "0.3.3"}
+        camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.3"}
+        cljs-bean/cljs-bean {:mvn/version "1.9.0"}
+        com.cognitect/transit-cljs {:mvn/version "0.8.280"}
         metosin/potpuri {:mvn/version "0.5.3"}
         metosin/sieppari {:mvn/version "0.0.0-alpha13"}}
 
@@ -32,4 +32,4 @@
 
    :extra-deps
    {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
-                     :sha "b093f79420fef019faf62a75b888b5e10f4e8cc9"}}}}}
+                     :sha "47ee078edcd6f85353dc5455dc0232c64a46e2ef"}}}}}

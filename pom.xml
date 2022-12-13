@@ -27,37 +27,37 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.10.3</version>
+      <version>1.11.1</version>
     </dependency>
     <dependency>
       <groupId>com.cognitect</groupId>
       <artifactId>transit-cljs</artifactId>
-      <version>0.8.269</version>
+      <version>0.8.280</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojurescript</artifactId>
-      <version>1.10.879</version>
+      <version>1.11.60</version>
     </dependency>
     <dependency>
       <groupId>cljs-bean</groupId>
       <artifactId>cljs-bean</artifactId>
-      <version>1.7.0</version>
+      <version>1.9.0</version>
     </dependency>
     <dependency>
       <groupId>applied-science</groupId>
       <artifactId>js-interop</artifactId>
-      <version>0.3.1</version>
+      <version>0.3.3</version>
     </dependency>
     <dependency>
       <groupId>camel-snake-kebab</groupId>
       <artifactId>camel-snake-kebab</artifactId>
-      <version>0.4.2</version>
+      <version>0.4.3</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>core.async</artifactId>
-      <version>1.4.627</version>
+      <version>1.6.673</version>
     </dependency>
     <dependency>
       <groupId>metosin</groupId>
