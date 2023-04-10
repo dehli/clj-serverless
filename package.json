@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/dehli/serverless#readme",
   "devDependencies": {
-    "aws-sdk": "^2.1273.0",
+    "aws-sdk": "^2.1354.0",
     "clj-kondo": "^2022.12.10"
   },
   "scripts": {
